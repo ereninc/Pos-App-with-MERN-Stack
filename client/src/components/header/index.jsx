@@ -15,10 +15,10 @@ export default function Header() {
       <header className="py-4 px-6 flex justify-between items-center gap-6">
         <div className="logo">
           <a href="/">
-            <h2 className="text-2xl font-bold md:text-4xl">POS App</h2>
+            <h2 className="text-2xl font-bold md:text-4xl">ex-Pos</h2>
           </a>
         </div>
-        <div className="header-search flex-1 flex justify-center">
+        <div className="header-search flex justify-center flex-1">
           <Input
             size="large"
             placeholder="Search for products"

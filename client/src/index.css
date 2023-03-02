@@ -8,10 +8,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Electrolize", sans-serif;
+  overflow: hidden;
 }
 
 .ant-btn-primary {
   background-color: #1677ff;
   border-color: #f5f5f5;
   color: white;
+}
+
+.categories-list::-webkit-scrollbar {
+  display: none;
 }
