@@ -1,6 +1,7 @@
 import React from "react";
 import Categories from "./components/categories";
 import Header from "./components/header";
+import ProductList from "./components/products/product-list";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
         <div className="categories flex-1">
           <Categories />
         </div>
-        <div className="products flex-[8]">Products</div>
+        <div className="products flex-[8]">
+          <ProductList />
+        </div>
         <div className="cart-total">Cart Total</div>
       </div>
     </div>

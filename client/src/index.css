@@ -20,3 +20,7 @@ body {
 .categories-list::-webkit-scrollbar {
   display: none;
 }
+
+.product-wrapper::-webkit-scrollbar {
+  display: none;
+}
