@@ -1,4 +1,5 @@
 import React from "react";
+import CategoryItem from "../../../pages/home/components/categories/category-item";
 
 export default function CategoriesContainer() {
   const categories = [
@@ -37,13 +38,9 @@ export default function CategoriesContainer() {
   ];
 
   return (
-    <ul className="categories-list flex gap-4 flex-col overflow-auto max-h-[calc(100vh-112px)] pb-6">
+    <ul className="categories-list flex gap-4 flex-col overflow-auto max-h-[calc(100vh-112px)] pb-6 min-w-[100px]">
       {categories.map((cat) => {
-        return (
-          <li className="bg-red-600 px-10 py-10 text-white cursor-pointer hover:bg-red-500 transition:all duration-300 text-center">
-            {cat.name}
-          </li>
-        );
+        return <CategoryItem key={cat.id} cat={cat} />;
       })}
     </ul>
   );
