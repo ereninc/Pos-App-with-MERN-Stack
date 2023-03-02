@@ -38,7 +38,7 @@ export default function CategoriesContainer() {
   ];
 
   return (
-    <ul className="categories-list flex gap-4 flex-col overflow-auto max-h-[calc(100vh-112px)] pb-6 min-w-[100px]">
+    <ul className="categories-list flex gap-4 md:flex-col overflow-auto max-h-[calc(100vh-112px)] md:pb-6 min-w-[145px]">
       {categories.map((cat) => {
         return <CategoryItem key={cat.id} cat={cat} />;
       })}
