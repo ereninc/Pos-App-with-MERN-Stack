@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import React from "react";
 import { ShoppingCartOutlined, ClearOutlined } from "@ant-design/icons";
+import CartItem from "../../../../pages/home/components/cart/cart-item";
 
 export default function CartTotalContainer() {
   return (
@@ -8,8 +9,29 @@ export default function CartTotalContainer() {
       <h2 className="bg-blue-600 px-6 py-4 text-white text-xl text-center tracking-wide">
         Products in cart
       </h2>
-      <div className="cart-items">
-        <div className="cart-item">Item</div>
+      <div className="cart-items px-6 py-4 flex flex-col gap-y-2 overflow-auto max-h-[calc(100vh-390px)] pb-6 min-w-[100px]">
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
       </div>
       <div className="cart-total mt-auto">
         <div className="cart-total-item flex justify-between px-6 py-2 border-t">

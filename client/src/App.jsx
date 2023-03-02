@@ -2,7 +2,7 @@ import React from "react";
 import CategoryList from "./pages/home/components/categories";
 import Header from "./components/header";
 import ProductList from "./pages/home/components/products/product-list";
-import CartTotals from "./pages/home/components/cart-totals";
+import CartTotals from "./pages/home/components/cart/cart-totals";
 
 function App() {
   return (
