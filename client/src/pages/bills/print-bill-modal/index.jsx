@@ -1,7 +1,6 @@
-import { Button, Input, Modal, Select } from "antd";
+import { Modal } from "antd";
 import React from "react";
-import { Form } from "react-router-dom";
-import CartTotalDetails from "../../cart/components/cart-total-details";
+import BillContainer from "../../../containers/bill-containers/print-bill-modal";
 
 export default function PrintBill(props) {
   return (
@@ -11,8 +10,9 @@ export default function PrintBill(props) {
       footer={false}
       onCancel={props.onCancel}
       onOk={props.onOk}
+      width={800}
     >
-      Bill
+      <BillContainer />
     </Modal>
   );
 }
