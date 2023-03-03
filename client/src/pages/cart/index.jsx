@@ -1,5 +1,7 @@
-import { Button, Card, Table } from "antd";
+import { Table } from "antd";
 import React from "react";
+import CartTotal from "./components/cart-total";
+import CheckoutModal from "./components/checkout-modal";
 
 export default function CartPage() {
   const dataSource = [
@@ -38,33 +40,7 @@ export default function CartPage() {
   return (
     <div className="px-6">
       <Table dataSource={dataSource} columns={columns} bordered />
-      <div className="cart-total flex justify-end">
-        <Card
-          // size="small"
-          title="Cart Total"
-          // extra={<a href="/">More</a>}
-          // style={{ width: 300 }}
-          className="w-64"
-        >
-          <div className="totals flex flex-col gap-2">
-            <div className="flex justify-between">
-              <span>Before Taxes</span>
-              <span>$90.00</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Tax (%10)</span>
-              <span className="text-red-600">+$9.00</span>
-            </div>
-            <div className="flex justify-between">
-              <b>Total</b>
-              <b>$99.00</b>
-            </div>
-          </div>
-          <Button type="primary" size="large" className="w-full mt-4">
-            Checkout
-          </Button>
-        </Card>
-      </div>
+      <CartTotal />
     </div>
   );
 }
