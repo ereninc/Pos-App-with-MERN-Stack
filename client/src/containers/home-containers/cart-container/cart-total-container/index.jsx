@@ -26,12 +26,12 @@ export default function CartTotalContainer() {
       </div>
       <div className="cart-total mt-auto">
         <div className="cart-total-item flex justify-between px-6 py-2 border-t">
-          <b>Before taxes</b>
+          <b>Before Taxes</b>
           <span>$90.00</span>
         </div>
         <div className="cart-total-item flex justify-between px-6 py-2 border-b">
           <b>Tax (%10)</b>
-          <span className="text-red-600">$9.00</span>
+          <span className="text-red-600">+$9.00</span>
         </div>
         <div className="cart-total-item flex justify-between px-6 py-2 border-b">
           <b className="text-green-500">Total</b>
