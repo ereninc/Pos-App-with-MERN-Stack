@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import CartTotalDetails from "../cart-total-details";
 
 export default function CheckoutModal(props) {
@@ -11,6 +11,10 @@ export default function CheckoutModal(props) {
     props.onCancel();
   };
 
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
   return (
     <Modal
       title="Create Bill"
@@ -19,66 +23,58 @@ export default function CheckoutModal(props) {
       onCancel={handleCancel}
       footer={null}
     >
-      <Form layout="vertical">
-        <Form.Item label="Client Name">
-          <Form.Item
-            name="firstName"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: "Please input first name!",
-              },
-            ]}
-          >
-            <Input placeholder="Name" />
-          </Form.Item>
+      <Form layout="vertical" onFinish={onFinish}>
+        <Form.Item
+          label="Client Name"
+          name="firstName"
+          rules={[
+            {
+              required: true,
+              message: "Please input first name!",
+            },
+          ]}
+        >
+          <Input placeholder="Name" />
         </Form.Item>
-        <Form.Item label="Client Phone Number">
-          <Form.Item
-            name="phoneNumber"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: "Please input number!",
-              },
-            ]}
-          >
-            <Input placeholder="+3304534135" />
-          </Form.Item>
+        <Form.Item
+          label="Client Phone Number"
+          name="phoneNumber"
+          rules={[
+            {
+              required: true,
+              message: "Please input number!",
+            },
+          ]}
+        >
+          <Input placeholder="+3304534135" maxLength={11} />
         </Form.Item>
-        <Form.Item label="Cash or Credit">
-          <Form.Item
-            name="paymentType"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: "Please select payment type!",
-              },
-            ]}
-          >
-            <Select placeholder="Payment type">
-              <Select.Option value="cash">Cash</Select.Option>
-              <Select.Option value="credit">Credit</Select.Option>
-            </Select>
-          </Form.Item>
+        <Form.Item
+          label="Cash or Credit"
+          name="paymentType"
+          rules={[
+            {
+              required: true,
+              message: "Please select payment type!",
+            },
+          ]}
+        >
+          <Select placeholder="Payment type">
+            <Select.Option value="cash">Cash</Select.Option>
+            <Select.Option value="credit">Credit</Select.Option>
+          </Select>
         </Form.Item>
+        <div className="border p-4 rounded-lg">
+          <CartTotalDetails />
+        </div>
+        <Button
+          type="primary"
+          size="large"
+          className="w-full mt-4"
+          htmlType="submit"
+        >
+          Create Bill
+        </Button>
       </Form>
-      <div className="border p-4 rounded-lg">
-        <CartTotalDetails />
-      </div>
-      <Button
-        type="primary"
-        size="large"
-        className="w-full mt-4"
-        onClick={() => {
-          // setIsModalOpen(true);
-        }}
-      >
-        Create Bill
-      </Button>
     </Modal>
   );
 }
