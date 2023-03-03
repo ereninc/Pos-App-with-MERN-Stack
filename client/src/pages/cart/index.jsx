@@ -1,7 +1,6 @@
-import { Table } from "antd";
 import React from "react";
+import DataTable from "../../components/data-table";
 import CartTotal from "./components/cart-total";
-import CheckoutModal from "./components/checkout-modal";
 
 export default function CartPage() {
   const dataSource = [
@@ -39,7 +38,7 @@ export default function CartPage() {
 
   return (
     <div className="px-6">
-      <Table dataSource={dataSource} columns={columns} bordered />
+      <DataTable dataSource={dataSource} columns={columns} />
       <CartTotal />
     </div>
   );
