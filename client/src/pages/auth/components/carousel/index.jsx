@@ -4,8 +4,8 @@ import { Carousel } from "antd";
 export default function CarouselSection() {
   return (
     <div className="bg-blue-500 h-full">
-      <Carousel dotPosition="bottom" className="h-screen">
-        <div className="!flex flex-col justify-center items-center h-full mt-[25%]">
+      <Carousel dotPosition="bottom" className="h-screen" autoplay>
+        <div className="!flex flex-col justify-center items-center h-screen">
           <img
             src="images/carousel/statistic.svg"
             alt="statistics"
@@ -17,7 +17,7 @@ export default function CarouselSection() {
           </p>
         </div>
 
-        <div className="!flex flex-col justify-center items-center h-full mt-[25%]">
+        <div className="!flex flex-col justify-center items-center h-screen">
           <img
             src="images/carousel/admin.svg"
             alt="admin panel"
@@ -29,7 +29,7 @@ export default function CarouselSection() {
           </p>
         </div>
 
-        <div className="!flex flex-col justify-center items-center h-full mt-[25%]">
+        <div className="!flex flex-col justify-center items-center h-screen">
           <img
             src="images/carousel/responsive.svg"
             alt="responsive"
@@ -41,7 +41,7 @@ export default function CarouselSection() {
           </p>
         </div>
 
-        <div className="!flex flex-col justify-center items-center h-full mt-[25%]">
+        <div className="!flex flex-col justify-center items-center h-screen">
           <img
             src="images/carousel/customer.svg"
             alt="customer"

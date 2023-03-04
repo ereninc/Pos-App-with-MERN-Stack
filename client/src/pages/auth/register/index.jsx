@@ -7,7 +7,7 @@ export default function RegisterPage() {
   return (
     <div className="h-screen bg-slate-400">
       <div className="flex flex-row justify-between h-full">
-        <div className="sm:max-w-full md:max-w-[500px] bg-slate-100 flex flex-1  flex-col h-full justify-center px-20">
+        <div className="sm:max-w-full md:max-w-[500px] bg-slate-100 flex flex-1  flex-col h-full justify-center px-20 min-w-[500px]">
           <h1 className="text-center text-5xl font-bold mb-6">Logo</h1>
           <Form layout="vertical">
             <Form.Item
