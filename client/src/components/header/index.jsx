@@ -15,7 +15,7 @@ export default function Header() {
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center gap-6">
         <div className="logo">
-          <NavLink to="/">
+          <NavLink to="/home">
             <h2 className="text-2xl font-bold md:text-4xl">ex-Pos</h2>
           </NavLink>
         </div>
@@ -29,7 +29,7 @@ export default function Header() {
         </div>
         <div className="menu-links flex justify-between items-center gap-8 md:static fixed bottom-0 md:w-auto w-[calc(100vw-25px)] md:bg-transparent z-50 bg-white left-0 md:px-0 px-6 md:py-0 py-4 md:border-t-0 border-t">
           <NavLink
-            to={"/"}
+            to={"/home"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all duration-300 min-w-[40px] text-center"
           >
             <HomeOutlined className="text-xl md:text-2xl" />

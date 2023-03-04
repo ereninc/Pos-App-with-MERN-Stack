@@ -1,25 +1,29 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/header";
 import HomePage from "./pages/home";
 import CartPage from "./pages/cart";
 import BillPage from "./pages/bills/bill";
 import ClientsPage from "./pages/clients/client";
 import StatisticsPage from "./pages/statistics/statistic";
 import RegisterPage from "./pages/auth/register";
+import AuthLayout from "./pages/auth/components/auth";
+import LoginPage from "./pages/auth/login";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/bills" element={<BillPage />} />
-          <Route path="/clients" element={<ClientsPage />} />
-          <Route path="/statistics" element={<StatisticsPage />} />
+          <Route path="/" element={<RegisterPage />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/bills" element={<BillPage />} />
+            <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+          </Route>
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </>
