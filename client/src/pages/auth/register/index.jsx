@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
+import CarouselSection from "../components/carousel";
 
 export default function RegisterPage() {
   return (
@@ -76,7 +77,11 @@ export default function RegisterPage() {
             </Link>
           </div>
         </div>
-        <div className="bg-blue-500 flex-1 md:flex hidden">RIGHT</div>
+        <div className="bg-blue-500 flex-1 md:flex hidden xl:w-2/3 min-w-[800px] h-full">
+          <div className="w-full h-full">
+            <CarouselSection />
+          </div>
+        </div>
       </div>
     </div>
   );

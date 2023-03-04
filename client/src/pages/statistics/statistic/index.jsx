@@ -106,29 +106,25 @@ export default function StatisticsPage() {
         <div className="statistic-cards grid md:grid-cols-4 mt-8 sm:grid-cols-2 gap-6 w-full">
           <StatisticCard
             title={"Total Clients"}
-            img={
-              "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-512.png"
-            }
+            img={"images/statistics-cards/clients.webp"}
             value={"100"}
           />
 
           <StatisticCard
             title={"Total Income"}
-            img={"https://cdn-icons-png.flaticon.com/512/4599/4599850.png"}
+            img={"images/statistics-cards/income.png"}
             value={"$100"}
           />
 
           <StatisticCard
             title={"Total Sells"}
-            img={"https://cdn-icons-png.flaticon.com/512/2361/2361914.png"}
+            img={"images/statistics-cards/saleCard.png"}
             value={"1200"}
           />
 
           <StatisticCard
             title={"Total Products"}
-            img={
-              "https://cdn3d.iconscout.com/3d/premium/thumb/product-5806313-4863042.png"
-            }
+            img={"images/statistics-cards/product.png"}
             value={"800"}
           />
         </div>
