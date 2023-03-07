@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
+
+const categoryRoute = require("./routes/categories.js");
 
 //Express server
 const app = express();
@@ -18,6 +21,12 @@ const connect = async () => {
     throw error;
   }
 };
+
+//middlewares
+app.use(express.json());
+app.use(cors());
+
+app.use("/api/categories", categoryRoute);
 
 app.get("/", (req, res) => {
   res.send("TEST");
