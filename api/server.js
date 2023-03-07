@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const categoryRoute = require("./routes/categories.js");
 const productRoute = require("./routes/products.js");
+const billRoute = require("./routes/bills.js");
+const authRoute = require("./routes/auth.js");
 
 //Express server
 const app = express();
@@ -29,10 +31,12 @@ app.use(cors());
 
 app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
+app.use("/api/bills", billRoute);
+app.use("/api/auth", authRoute);
 
-// app.get("/", (req, res) => {
-//   res.send("TEST");
-// });
+app.get("/", (req, res) => {
+  res.send("TEST");
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
