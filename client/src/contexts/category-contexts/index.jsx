@@ -26,7 +26,7 @@ export function CategoryProvider({ children }) {
     };
 
     getCategories();
-  }, []);
+  }, [categories]);
 
   return (
     <CategoryContext.Provider value={categories}>
