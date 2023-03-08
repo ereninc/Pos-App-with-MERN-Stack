@@ -17,6 +17,9 @@ export default function NewCategoryItem() {
       });
       message.success("Category added successfully!");
       form.resetFields();
+      //   setTimeout(() => {
+      //     window.location.reload(true);
+      //   }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +40,7 @@ export default function NewCategoryItem() {
   return (
     <>
       <div
-        className="bg-green-600 px-10 py-10 min-w-[145px] flex items-center justify-center  text-white cursor-pointer hover:bg-green-500 transition:all duration-300 text-center text-2xl min-h-[120px] h-[120px] max-h-[120px]"
+        className="bg-green-600 hover:bg-green-500 px-10 py-10 sm:min-w-[80px] sm:max-h-[60px] md:min-w-[140px] text-white cursor-pointer  transition:all duration-300 text-center flex justify-center items-center"
         onClick={showModal}
       >
         <PlusOutlined />
@@ -63,7 +66,13 @@ export default function NewCategoryItem() {
             <Input placeholder="Enter category name." />
           </Form.Item>
           <Form.Item className="flex justify-end mb-0">
-            <Button type="primary" htmlType="submit" onClick={handleOk}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={() => {
+                handleOk();
+              }}
+            >
               Create
             </Button>
           </Form.Item>
