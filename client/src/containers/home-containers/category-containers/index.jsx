@@ -1,5 +1,7 @@
 import React from "react";
 import CategoryItem from "../../../pages/home/components/categories/category-item";
+import EditCategoryItem from "../../../pages/home/components/categories/category-item/edit-category-item";
+import NewCategoryItem from "../../../pages/home/components/categories/category-item/new-category-item";
 
 export default function CategoriesContainer() {
   const categories = [
@@ -9,15 +11,15 @@ export default function CategoriesContainer() {
     },
     {
       id: 2,
-      name: "Category 1",
+      name: "Tech",
     },
     {
       id: 3,
-      name: "Category 2",
+      name: "Home",
     },
     {
       id: 4,
-      name: "Category 3",
+      name: "Cosmetic",
     },
     {
       id: 5,
@@ -42,6 +44,8 @@ export default function CategoriesContainer() {
       {categories.map((cat) => {
         return <CategoryItem key={cat.id} cat={cat} />;
       })}
+      <NewCategoryItem />
+      <EditCategoryItem />
     </ul>
   );
 }
