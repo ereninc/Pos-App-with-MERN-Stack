@@ -8,7 +8,7 @@ export default function NewCategoryItem() {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log("SUBMITTED", values);
+    // console.log("SUBMITTED", values);
     try {
       fetch("http://localhost:5000/api/categories/add-category", {
         method: "POST",
@@ -17,9 +17,6 @@ export default function NewCategoryItem() {
       });
       message.success("Category added successfully!");
       form.resetFields();
-      //   setTimeout(() => {
-      //     window.location.reload(true);
-      //   }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -66,13 +63,7 @@ export default function NewCategoryItem() {
             <Input placeholder="Enter category name." />
           </Form.Item>
           <Form.Item className="flex justify-end mb-0">
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => {
-                handleOk();
-              }}
-            >
+            <Button type="primary" htmlType="submit">
               Create
             </Button>
           </Form.Item>
