@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Space, Table, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { useCategories } from "../../../../../../contexts/category-contexts";
 
-export default function EditCategoryItem() {
+export default function EditCategoryItem({ categories }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  const categories = useCategories();
+  const [editingRow, setEditingRow] = useState({});
 
   const showModal = () => {
     setIsEditModalOpen(true);
@@ -19,6 +16,84 @@ export default function EditCategoryItem() {
 
   const handleCancel = () => {
     setIsEditModalOpen(false);
+  };
+
+  const columns = [
+    {
+      title: "Category Title",
+      dataIndex: "title",
+      render: (_, item) => {
+        return (
+          <Form.Item className="mb-0" name="title">
+            {item._id === editingRow._id ? (
+              <Input defaultValue={item.title} />
+            ) : (
+              <p>{item.title}</p>
+            )}
+          </Form.Item>
+        );
+      },
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (_, item) => {
+        return (
+          <div className="flex justify-center items-center">
+            <Button
+              type="text"
+              primary
+              className="text-blue-500 hover:!text-blue-500"
+              onClick={() => {
+                setEditingRow(item);
+                console.log(editingRow);
+              }}
+            >
+              Edit
+            </Button>
+            <Button type="text" htmlType="submit">
+              Save
+            </Button>
+            <Button
+              type="text"
+              danger
+              onClick={() => {
+                onDelete(item._id);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const onFinish = (values) => {
+    try {
+      fetch("http://localhost:5000/api/categories/update-category", {
+        method: "PUT",
+        body: JSON.stringify({ ...values, categoryId: editingRow._id }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      message.success("Category name changed.");
+      setEditingRow({});
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDelete = (id) => {
+    try {
+      fetch("http://localhost:5000/api/categories/delete-category", {
+        method: "DELETE",
+        body: JSON.stringify({ categoryId: id }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      message.success("Category deleted.");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -36,8 +111,13 @@ export default function EditCategoryItem() {
         onCancel={handleCancel}
         footer={null}
       >
-        <Form>
-          <Table bordered />
+        <Form onFinish={onFinish}>
+          <Table
+            bordered
+            dataSource={categories}
+            columns={columns}
+            rowKey={"_id"}
+          />
         </Form>
       </Modal>
     </>

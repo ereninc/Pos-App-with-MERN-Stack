@@ -13,7 +13,7 @@ export default function CategoriesContainer() {
         return <CategoryItem key={cat._id} cat={cat} />;
       })}
       <NewCategoryItem />
-      <EditCategoryItem />
+      <EditCategoryItem categories={categories} />
     </ul>
   );
 }
