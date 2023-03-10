@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductItem from "../../../pages/home/components/products/product-item";
+import EditProductItem from "../../../pages/home/components/products/product-item/edit-product-item";
+import NewProductItem from "../../../pages/home/components/products/product-item/new-product-item";
 
 export default function ProductListContainer() {
   const [products, setProducts] = useState([]);
@@ -12,7 +14,6 @@ export default function ProductListContainer() {
         );
         const data = await res.json();
         setProducts(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -33,6 +34,8 @@ export default function ProductListContainer() {
           />
         );
       })}
+      <NewProductItem products={products} setProducts={setProducts} />
+      <EditProductItem products={products} setProducts={setProducts} />
     </div>
   );
 }

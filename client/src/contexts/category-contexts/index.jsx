@@ -19,7 +19,13 @@ export function CategoryProvider({ children }) {
           }
         );
         const data = await res.json();
-        setCategories(data);
+        data &&
+          setCategories(
+            data.map((item) => {
+              return { ...item, value: item.title };
+            })
+          );
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
