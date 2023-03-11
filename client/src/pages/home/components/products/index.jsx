@@ -1,9 +1,11 @@
 import React from "react";
+import EditProductsContainer from "../../../../containers/edit-product-containers";
+import { ProductProvider } from "../../../../contexts/product-contexts";
 
 export default function ProductsPage() {
   return (
-    <div className="px-6">
-      <h1 className="text-4xl text-center font-bold mb-4">Products</h1>
-    </div>
+    <ProductProvider>
+      <EditProductsContainer />
+    </ProductProvider>
   );
 }
