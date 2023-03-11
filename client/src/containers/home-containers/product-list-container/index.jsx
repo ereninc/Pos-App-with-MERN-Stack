@@ -18,7 +18,6 @@ export default function ProductListContainer() {
         console.log(error);
       }
     };
-
     getProducts();
   }, []);
 

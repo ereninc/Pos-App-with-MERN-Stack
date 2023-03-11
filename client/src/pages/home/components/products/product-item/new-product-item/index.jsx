@@ -9,6 +9,7 @@ export default function NewProductItem({ products, setProducts }) {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+    console.log(values);
     try {
       fetch("http://localhost:5000/api/products/add-product", {
         method: "POST",
@@ -16,11 +17,14 @@ export default function NewProductItem({ products, setProducts }) {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
       message.success("Product added successfully!");
-      //   setProducts(...products, {
-      //     ...values,
-      //     _id: Math.random(),
-      //     price: Number(values.title),
-      //   });
+      setProducts([
+        ...products,
+        {
+          ...values,
+          _id: Math.random() * 10 + 1,
+          price: Number(values.price),
+        },
+      ]);
       form.resetFields();
     } catch (error) {
       console.log(error);
