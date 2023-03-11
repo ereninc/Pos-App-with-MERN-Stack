@@ -1,10 +1,26 @@
 import React, { useState } from "react";
-import { Button, Form, Input, message, Table } from "antd";
+import { Button, Form, Input, message, Modal, Select, Table } from "antd";
 import { useProducts } from "../../../../../contexts/product-contexts";
+import { useCategories } from "../../../../../contexts/category-contexts";
 
 export default function EditProducts() {
-  const [editingRow, setEditingRow] = useState({});
+  const [editingItem, setEditingItem] = useState({});
   const products = useProducts();
+  const categories = useCategories();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [form] = Form.useForm();
+
+  const showModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditModalOpen(false);
+  };
 
   const columns = [
     {
@@ -12,15 +28,7 @@ export default function EditProducts() {
       dataIndex: "title",
       width: "8%",
       render: (_, item) => {
-        return (
-          <Form.Item className="mb-0" name="title">
-            {item._id === editingRow._id ? (
-              <Input defaultValue={item.title} />
-            ) : (
-              <p>{item.title}</p>
-            )}
-          </Form.Item>
-        );
+        return <p>{item.title}</p>;
       },
     },
     {
@@ -61,24 +69,21 @@ export default function EditProducts() {
       width: "8%",
       render: (_, item) => {
         return (
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center gap-4 items-center">
             <Button
               type="text"
-              primary
+              primary={"true"}
               className="text-blue-500 hover:!text-blue-500"
               onClick={() => {
-                setEditingRow(item);
-                console.log(editingRow);
+                setEditingItem(item);
+                showModal();
               }}
             >
               Edit
             </Button>
-            <Button type="text" htmlType="submit">
-              Save
-            </Button>
             <Button
               type="text"
-              danger
+              danger={"true"}
               onClick={() => {
                 onDelete(item._id);
               }}
@@ -92,43 +97,123 @@ export default function EditProducts() {
   ];
 
   const onFinish = (values) => {
-    // try {
-    //   fetch("http://localhost:5000/api/categories/update-category", {
-    //     method: "PUT",
-    //     body: JSON.stringify({ ...values, categoryId: editingRow._id }),
-    //     headers: { "Content-type": "application/json; charset=UTF-8" },
-    //   });
-    //   message.success("Category name changed.");
-    //   setEditingRow({});
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      fetch("http://localhost:5000/api/products/update-product", {
+        method: "PUT",
+        body: JSON.stringify({ ...values, productId: editingItem._id }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      message.success("Product updated.");
+      setEditingItem({});
+      handleOk();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onDelete = (id) => {
-    // try {
-    //   fetch("http://localhost:5000/api/categories/delete-category", {
-    //     method: "DELETE",
-    //     body: JSON.stringify({ categoryId: id }),
-    //     headers: { "Content-type": "application/json; charset=UTF-8" },
-    //   });
-    //   message.success("Category deleted.");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      fetch("http://localhost:5000/api/products/delete-product", {
+        method: "DELETE",
+        body: JSON.stringify({ productId: id }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      message.success("Product deleted.");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
-      <Form onFinish={onFinish}>
-        <Table
-          bordered="true"
-          dataSource={products}
-          columns={columns}
-          rowKey={"_id"}
-          scroll={{ x: 1000, y: 600 }}
-        />
-      </Form>
+      <Table
+        bordered="true"
+        dataSource={products}
+        columns={columns}
+        rowKey={"_id"}
+        scroll={{ x: 1000, y: 600 }}
+      />
+      <Modal
+        title="Edit product.."
+        open={isEditModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form
+          layout="vertical"
+          onFinish={onFinish}
+          form={form}
+          initialValues={editingItem}
+        >
+          <Form.Item
+            label="Product Title"
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: "Enter product title!",
+              },
+            ]}
+          >
+            <Input placeholder="Enter product name." />
+          </Form.Item>
+          <Form.Item
+            label="Product Price"
+            name="price"
+            rules={[
+              {
+                required: true,
+                message: "Enter product price!",
+              },
+            ]}
+          >
+            <Input placeholder="Enter product price." />
+          </Form.Item>
+          <Form.Item
+            label="Product ImageURL"
+            name="img"
+            rules={[
+              {
+                required: true,
+                message: "Enter product image!",
+              },
+            ]}
+          >
+            <Input placeholder="https://imageSource.com/image1" />
+          </Form.Item>
+          <Form.Item
+            label="Product Category"
+            name="category"
+            rules={[
+              {
+                required: true,
+                message: "Select product category!",
+              },
+            ]}
+          >
+            <Select
+              showSearch
+              placeholder="Search to Select"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.title ?? "").includes(input)
+              }
+              filterSort={(optionA, optionB) =>
+                (optionA?.title ?? "")
+                  .toLowerCase()
+                  .localeCompare((optionB?.title ?? "").toLowerCase())
+              }
+              options={categories}
+            />
+          </Form.Item>
+          <Form.Item className="flex justify-end mb-0">
+            <Button type="primary" htmlType="submit">
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 }

@@ -26,6 +26,7 @@ export default function NewProductItem({ products, setProducts }) {
         },
       ]);
       form.resetFields();
+      handleOk();
     } catch (error) {
       console.log(error);
     }

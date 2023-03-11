@@ -32,7 +32,7 @@ export function ProductProvider({ children }) {
     };
 
     getproducts();
-  }, []);
+  }, [products]);
 
   return (
     <ProductContext.Provider value={products}>
