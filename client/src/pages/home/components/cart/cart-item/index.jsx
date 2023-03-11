@@ -1,10 +1,14 @@
 import { Button } from "antd";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import React from "react";
+import { addProduct, removeProduct } from "../../../../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 export default function CartItem(props) {
+  const dispatch = useDispatch();
+
   return (
-    <div className="cart-item flex flex-row justify-between gap-4 items-center border-b pb-2">
+    <div className="cart-item flex flex-row justify-between gap-4 items-center border-b pb-2 cursor-pointer">
       <div className="cart-detail flex flex-[2] gap-2">
         <div className="cart-item-image">
           <img
@@ -29,6 +33,7 @@ export default function CartItem(props) {
             size="small"
             icon={<PlusCircleOutlined />}
             className="cart-item__quantity--button flex justify-center items-center text-white"
+            onClick={() => dispatch(addProduct(props.item))}
           ></Button>
           <div className="cart-item__quantity--number font-bold">
             {props.item.quantity}
@@ -38,6 +43,7 @@ export default function CartItem(props) {
             size="small"
             icon={<MinusCircleOutlined />}
             className="cart-item__quantity--button flex justify-center items-center text-white"
+            onClick={() => dispatch(removeProduct(props.item))}
           ></Button>
         </div>
       </div>
