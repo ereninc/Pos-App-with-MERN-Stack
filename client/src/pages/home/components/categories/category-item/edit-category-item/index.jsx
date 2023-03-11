@@ -42,7 +42,7 @@ export default function EditCategoryItem({ categories }) {
           <div className="flex justify-center items-center">
             <Button
               type="text"
-              primary
+              primary="true"
               className="text-blue-500 hover:!text-blue-500"
               onClick={() => {
                 setEditingRow(item);
@@ -56,7 +56,7 @@ export default function EditCategoryItem({ categories }) {
             </Button>
             <Button
               type="text"
-              danger
+              danger="true"
               onClick={() => {
                 onDelete(item._id);
               }}
