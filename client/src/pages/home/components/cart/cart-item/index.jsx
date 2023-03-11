@@ -43,7 +43,13 @@ export default function CartItem(props) {
             size="small"
             icon={<MinusCircleOutlined />}
             className="cart-item__quantity--button flex justify-center items-center text-white"
-            onClick={() => dispatch(removeProduct(props.item))}
+            onClick={() => {
+              if (props.item.quantity === 1) {
+                if (window.confirm("Remove from cart?")) {
+                  dispatch(removeProduct(props.item));
+                }
+              } else dispatch(removeProduct(props.item));
+            }}
           ></Button>
         </div>
       </div>

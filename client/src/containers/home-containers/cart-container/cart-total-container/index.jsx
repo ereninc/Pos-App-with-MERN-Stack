@@ -13,9 +13,13 @@ export default function CartTotalContainer() {
         Products in cart
       </h2>
       <div className="cart-items px-6 py-4 flex flex-col gap-y-2 overflow-auto max-h-[calc(100vh-390px)] pb-6 min-w-[100px]">
-        {cart.cartItems.map((item) => {
-          return <CartItem item={item} key={item._id} />;
-        })}
+        {cart.cartItems.length > 0 ? (
+          cart.cartItems.map((item) => {
+            return <CartItem item={item} key={item._id} />;
+          })
+        ) : (
+          <p>Cart is empty.</p>
+        )}
       </div>
       <div className="cart-total mt-auto">
         <div className="cart-total-item flex justify-between px-6 py-2 border-t">
