@@ -1,14 +1,16 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import React from "react";
 import { ShoppingCartOutlined, ClearOutlined } from "@ant-design/icons";
 import CartItem from "../../../../pages/home/components/cart/cart-item";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../../../redux/cartSlice";
 
 export default function CartTotalContainer() {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   return (
-    <div className="cart h-full flex flex-col mr-6 md:mr-0">
+    <div className="cart h-full flex flex-col mr-6 md:mr-0 md:max-w-[300px] md:min-w-[300px]">
       <h2 className="bg-blue-600 px-6 py-4 text-white text-xl text-center tracking-wide">
         Products in cart
       </h2>
@@ -54,6 +56,14 @@ export default function CartTotalContainer() {
             size="large"
             className=" text-white w-full flex items-center justify-center"
             icon={<ClearOutlined />}
+            onClick={() => {
+              if (cart.cartItems.length > 0) {
+                if (window.confirm("Are you sure?")) {
+                  dispatch(clearCart());
+                  message.success("Cart is empty.");
+                }
+              }
+            }}
           >
             Clear Cart
           </Button>
