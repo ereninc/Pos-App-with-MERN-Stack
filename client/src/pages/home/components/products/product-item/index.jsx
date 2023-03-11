@@ -9,7 +9,7 @@ export default function ProductItem(props) {
   console.log(cart);
   const handleClick = () => {
     // console.log("clicked on", props);
-    dispatch(addProduct(props));
+    dispatch(addProduct({ ...props, quantity: 1 }));
   };
 
   return (

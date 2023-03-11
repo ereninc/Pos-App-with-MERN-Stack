@@ -27,6 +27,7 @@ export default function ProductListContainer() {
         return (
           <ProductItem
             key={pd._id}
+            _id={pd._id}
             productName={pd.title}
             productPrice={pd.price}
             productImage={pd.img}
