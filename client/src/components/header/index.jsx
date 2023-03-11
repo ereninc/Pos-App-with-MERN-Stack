@@ -8,9 +8,12 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Badge, Input } from "antd";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center gap-6">
@@ -35,7 +38,11 @@ export default function Header() {
             <HomeOutlined className="text-xl md:text-2xl" />
             <span className="text-xs md:text-sm">Home</span>
           </NavLink>
-          <Badge count={5} offset={[0, 6]} className="md:flex hidden">
+          <Badge
+            count={cart.cartItems.length}
+            offset={[0, 6]}
+            className="md:flex hidden"
+          >
             <NavLink
               to={"/cart"}
               className="menu-link flex flex-col hover:text-[#40a9ff] transition-all duration-300 min-w-[40px] text-center"
