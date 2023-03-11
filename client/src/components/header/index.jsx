@@ -13,7 +13,6 @@ import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const cart = useSelector((state) => state.cart);
-  // const
 
   return (
     <div className="border-b mb-6">
