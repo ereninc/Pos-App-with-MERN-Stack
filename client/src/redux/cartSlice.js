@@ -27,8 +27,14 @@ const cartSlice = createSlice({
       );
       if (cartItem) {
         cartItem.quantity--;
-        if (cartItem.quantity <= 0) state.cartItems.pop(action.payload);
-      } else state.cartItems.pop(action.payload);
+        if (cartItem.quantity <= 0)
+          state.cartItems = state.cartItems.filter(
+            (item) => item._id !== action.payload._id
+          );
+      } else
+        state.cartItems = state.cartItems.filter(
+          (item) => item._id !== action.payload._id
+        );
 
       state.subTotal -= action.payload.productPrice;
       state.cartTotal =
