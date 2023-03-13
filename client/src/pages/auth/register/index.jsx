@@ -1,19 +1,28 @@
 import { Button, Form, Input, message } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import CarouselSection from "../components/carousel";
 
 export default function RegisterPage() {
-  const onFinish = (values) => {
-    console.log(values);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const onFinish = async (values) => {
     try {
-      fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
-      message.success("Registered!");
+      if (res.ok) {
+        message.success("Registered successfully!");
+        setIsLoading(true);
+        setTimeout(() => {
+          navigate("/login");
+          setIsLoading(false);
+        }, 2000);
+      }
     } catch (error) {
+      message.error("Something went wrong!");
       console.log(error);
     }
   };
@@ -88,6 +97,7 @@ export default function RegisterPage() {
                 htmlType="submit"
                 className="w-full"
                 width="100%"
+                loading={isLoading}
               >
                 Register
               </Button>
