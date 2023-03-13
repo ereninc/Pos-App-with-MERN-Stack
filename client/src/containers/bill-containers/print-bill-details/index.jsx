@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function BillDetails({ customer }) {
-  console.log(customer);
+  // console.log(customer);
   return (
     <div className="grid grid-cols-4 gap-6">
       <div className="bill-to">
