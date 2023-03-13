@@ -24,6 +24,7 @@ export default function RegisterPage() {
     } catch (error) {
       message.error("Something went wrong!");
       console.log(error);
+      setIsLoading(false);
     }
   };
 

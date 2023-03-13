@@ -1,15 +1,59 @@
-import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Button, Checkbox, Form, Input, message } from "antd";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import CarouselSection from "../components/carousel";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onFinish = async (values) => {
+    console.log(values);
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+
+      const user = await res.json();
+
+      if (res.status === 200) {
+        localStorage.setItem(
+          "setUser",
+          JSON.stringify({
+            username: user.username,
+            email: user.email,
+          })
+        );
+        message.success("Login successful!");
+        setIsLoading(true);
+        setTimeout(() => {
+          navigate("/home");
+          setIsLoading(false);
+        }, 2000);
+      } else if (res.status === 404) {
+        message.error("User not found");
+      } else if (res.status === 403) {
+        message.error("Wrong password");
+      }
+    } catch (error) {
+      message.error("Something went wrong!");
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="h-screen bg-slate-400">
       <div className="flex flex-row justify-between h-full">
         <div className="sm:max-w-full md:max-w-[500px] bg-slate-100 flex flex-1  flex-col h-full justify-center px-20 min-w-[500px]">
           <h1 className="text-center text-5xl font-bold mb-6">Logo</h1>
-          <Form layout="vertical">
+          <Form
+            layout="vertical"
+            initialValues={{ remember: false }}
+            onFinish={onFinish}
+          >
             <Form.Item
               label="Username"
               name="username"
@@ -61,6 +105,7 @@ export default function LoginPage() {
                 htmlType="submit"
                 className="w-full"
                 width="100%"
+                loading={isLoading}
               >
                 Login
               </Button>
