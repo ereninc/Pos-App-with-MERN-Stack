@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home";
 import CartPage from "./pages/cart";
 import BillPage from "./pages/bills/bill";
-import ClientsPage from "./pages/clients/client";
+import CustomersPage from "./pages/customers/customer";
 import StatisticsPage from "./pages/statistics/statistic";
 import RegisterPage from "./pages/auth/register";
 import AuthLayout from "./pages/auth/components/auth";
@@ -20,7 +20,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/bills" element={<BillPage />} />
-            <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/customers" element={<CustomersPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/products" element={<ProductsPage />} />
           </Route>
