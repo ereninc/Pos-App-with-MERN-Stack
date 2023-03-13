@@ -31,6 +31,7 @@ export default function ProductListContainer() {
             productName={pd.title}
             productPrice={pd.price}
             productImage={pd.img}
+            productCategory={pd.category}
           />
         );
       })}
