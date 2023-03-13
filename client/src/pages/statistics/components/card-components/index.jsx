@@ -3,7 +3,7 @@ import React from "react";
 export default function StatisticCard({ title, img, value }) {
   return (
     <div className="card rounded-lg flex justify-center bg-slate-800 min-h-[96px]">
-      <div className="card-content flex flex-row justify-center gap-1 items-center">
+      <div className="card-content flex flex-row justify-center gap-[8px] items-center">
         <div className="card-image flex justify-center">
           <img src={img} alt="clients" className="w-12 h-12 object-cover" />
         </div>

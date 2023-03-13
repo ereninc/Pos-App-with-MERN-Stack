@@ -59,11 +59,11 @@ export default function Header() {
             <span className="text-xs md:text-sm">Bills</span>
           </NavLink>
           <NavLink
-            to={"/clients"}
+            to={"/customers"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all duration-300 min-w-[40px] text-center"
           >
             <UserSwitchOutlined className="text-xl md:text-2xl" />
-            <span className="text-xs md:text-sm">Clients</span>
+            <span className="text-xs md:text-sm">Customers</span>
           </NavLink>
           <NavLink
             to={"/statistics"}
