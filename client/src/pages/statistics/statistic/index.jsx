@@ -124,7 +124,7 @@ export default function StatisticsPage() {
 
           <StatisticCard
             title={"Total Products"}
-            img={"images/statistics-cards/product.png"}
+            img={"images/statistics-cards/product.webp"}
             value={"800"}
           />
         </div>
