@@ -4,10 +4,12 @@ import { ShoppingCartOutlined, ClearOutlined } from "@ant-design/icons";
 import CartItem from "../../../../pages/home/components/cart/cart-item";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function CartTotalContainer() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="cart h-full flex flex-col mr-6 md:mr-0 md:max-w-[300px] md:min-w-[300px]">
@@ -46,6 +48,9 @@ export default function CartTotalContainer() {
             size="large"
             className=" text-white w-full flex items-center justify-center"
             icon={<ShoppingCartOutlined />}
+            onClick={() => {
+              navigate("/cart");
+            }}
           >
             Checkout
           </Button>

@@ -1,10 +1,12 @@
 import { Button, Card } from "antd";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import CartTotalDetails from "../cart-total-details";
 import CheckoutModal from "../checkout-modal";
 
 export default function CartTotal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const cart = useSelector((state) => state.cart);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -25,6 +27,7 @@ export default function CartTotal() {
           onClick={() => {
             setIsModalOpen(true);
           }}
+          disabled={cart.cartItems.length === 0}
         >
           Checkout
         </Button>

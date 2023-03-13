@@ -1,14 +1,10 @@
 import React from "react";
 import { addProduct } from "../../../../../redux/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function ProductItem(props) {
-  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
-  console.log(cart);
   const handleClick = () => {
-    // console.log("clicked on", props);
     dispatch(addProduct({ ...props, quantity: 1 }));
   };
 

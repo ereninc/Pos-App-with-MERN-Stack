@@ -1,8 +1,16 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../../../redux/cartSlice";
 import CartTotalDetails from "../cart-total-details";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutModal(props) {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+
   const handleOk = () => {
     props.onOk();
   };
@@ -11,8 +19,41 @@ export default function CheckoutModal(props) {
     props.onCancel();
   };
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success:", values);
+    try {
+      const res = await fetch("http://localhost:5000/api/bills/add-bill", {
+        method: "POST",
+        body: JSON.stringify({
+          // ...values,
+          customerName: values.firstName,
+          customerPhone: values.phoneNumber,
+          paymentType: values.paymentType,
+          cartItems: cart.cartItems,
+          subTotal: cart.subTotal,
+          tax: cart.taxes,
+          totalPrice: (
+            cart.subTotal +
+            (cart.subTotal * cart.taxes) / 100
+          ).toFixed(2),
+        }),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+
+      console.log(res);
+      if (res.ok) {
+        message.success("Created");
+        dispatch(clearCart());
+        form.resetFields();
+        handleOk();
+        setTimeout(() => {
+          navigate("/bills");
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+      message.error("There was an error..");
+    }
   };
 
   return (
@@ -23,7 +64,7 @@ export default function CheckoutModal(props) {
       onCancel={handleCancel}
       footer={null}
     >
-      <Form layout="vertical" onFinish={onFinish}>
+      <Form layout="vertical" onFinish={onFinish} form={form}>
         <Form.Item
           label="Client Name"
           name="firstName"
