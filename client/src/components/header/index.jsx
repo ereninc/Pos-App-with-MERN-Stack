@@ -81,7 +81,11 @@ export default function Header() {
           </NavLink>
         </div>
 
-        <Badge count={5} offset={[0, 6]} className="md:hidden flex">
+        <Badge
+          count={cart.cartItems.length}
+          offset={[0, 6]}
+          className="md:hidden flex"
+        >
           <NavLink
             to={"/cart"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all duration-300 min-w-[40px] text-center"
