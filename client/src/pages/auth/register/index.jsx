@@ -1,15 +1,29 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import CarouselSection from "../components/carousel";
 
 export default function RegisterPage() {
+  const onFinish = (values) => {
+    console.log(values);
+    try {
+      fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      message.success("Registered!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="h-screen bg-slate-400">
       <div className="flex flex-row justify-between h-full">
         <div className="sm:max-w-full md:max-w-[500px] bg-slate-100 flex flex-1  flex-col h-full justify-center px-20 min-w-[500px]">
           <h1 className="text-center text-5xl font-bold mb-6">Logo</h1>
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Username"
               name="username"

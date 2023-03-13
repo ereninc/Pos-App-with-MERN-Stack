@@ -1,11 +1,13 @@
 import React from "react";
 import { addProduct } from "../../../../../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { message } from "antd";
 
 export default function ProductItem(props) {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(addProduct({ ...props, quantity: 1 }));
+    message.success("Added to cart.");
   };
 
   return (
