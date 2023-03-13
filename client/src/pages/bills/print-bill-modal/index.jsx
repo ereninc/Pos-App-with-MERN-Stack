@@ -12,7 +12,7 @@ export default function PrintBill(props) {
       onOk={props.onOk}
       width={800}
     >
-      <BillContainer />
+      <BillContainer customer={props.customer} />
     </Modal>
   );
 }

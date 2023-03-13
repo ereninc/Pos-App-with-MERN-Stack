@@ -1,18 +1,19 @@
 import React from "react";
 
-export default function BillDetails() {
+export default function BillDetails({ customer }) {
+  console.log(customer);
   return (
     <div className="grid grid-cols-4 gap-6">
       <div className="bill-to">
         <h3 className="text-xl font-bold text-slate-700">Bill To</h3>
-        <p className="text-xs text-slate-500">John Doe</p>
+        <p className="text-xs text-slate-500">{customer.customerName}</p>
         <p className="text-xs text-slate-500">1234 Main St</p>
         <p className="text-xs text-slate-500">Anytown, USA 12345</p>
       </div>
 
       <div className="bill-from">
         <h3 className="text-xl font-bold text-slate-700">Bill From</h3>
-        <p className="text-xs text-slate-500">John Doe</p>
+        <p className="text-xs text-slate-500">ex-Store</p>
         <p className="text-xs text-slate-500">1234 Main St</p>
         <p className="text-xs text-slate-500">Anytown, USA 12345</p>
       </div>
@@ -20,7 +21,9 @@ export default function BillDetails() {
       <div className="number-date flex flex-col gap-4">
         <div className="bill-date">
           <h3 className="text-xl font-bold text-slate-700">Bill Date</h3>
-          <p className="text-xs text-slate-500">12/12/2020</p>
+          <p className="text-xs text-slate-500">
+            {customer.createdAt.substring(0, 10)}
+          </p>
         </div>
 
         <div className="bill-number">
@@ -37,7 +40,9 @@ export default function BillDetails() {
 
         <div className="due">
           <h3 className="text-xl font-bold text-slate-700">Due</h3>
-          <p className="text-xs text-slate-500">12/12/2020</p>
+          <p className="text-xs text-slate-500">
+            {customer.createdAt.substring(0, 10)}
+          </p>
         </div>
       </div>
     </div>

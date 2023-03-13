@@ -6,6 +6,7 @@ import PrintBill from "../print-bill-modal";
 export default function BillPage() {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [bills, setBills] = useState([]);
+  const [customer, setCustomer] = useState();
 
   useEffect(() => {
     const getBills = async () => {
@@ -30,22 +31,9 @@ export default function BillPage() {
     setIsModalVisible(!isModalVisible);
   };
 
-  // const DATA = [
-  //   {
-  //     key: "1",
-  //     name: "Mike",
-  //     age: 32,
-  //     address: "10 Downing Street",
-  //   },
-  //   {
-  //     key: "2",
-  //     name: "John",
-  //     age: 42,
-  //     address: "10 Downing Street",
-  //   },
-  // ];
+  // console.log(customer);
 
-  const COLS = [
+  const columns = [
     {
       title: "Customer Name",
       dataIndex: "customerName",
@@ -88,9 +76,17 @@ export default function BillPage() {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: () => {
+      render: (text, record) => {
+        //text and item
         return (
-          <Button type="text" onClick={showModal} className="text-blue-500">
+          <Button
+            type="text"
+            onClick={() => {
+              showModal();
+              setCustomer(record);
+            }}
+            className="text-blue-500"
+          >
             Print Bill
           </Button>
         );
@@ -102,13 +98,14 @@ export default function BillPage() {
     <div>
       <h1 className="font-bold text-center text-5xl">Bills</h1>
       <div className="p-6">
-        <DataTable dataSource={bills} columns={COLS} />
+        <DataTable dataSource={bills} columns={columns} />
       </div>
       {isModalVisible && (
         <PrintBill
           isModalOpen={isModalVisible}
           onOk={showModal}
           onCancel={showModal}
+          customer={customer}
         />
       )}
     </div>

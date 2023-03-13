@@ -2,7 +2,7 @@ import { Button } from "antd";
 import React from "react";
 import BillDetails from "../print-bill-details";
 
-export default function BillContainer() {
+export default function BillContainer({ customer }) {
   return (
     <div>
       <section className="py-20 bg-black">
@@ -12,7 +12,7 @@ export default function BillContainer() {
               <h2 className="text-4xl font-bold text-slate-700">ex-Pos</h2>
             </div>
             <div className="bill-details">
-              <BillDetails />
+              <BillDetails customer={customer} />
             </div>
             <div className="bill-table-area mt-6">
               <table className="min-w-full divide-y text-left divide-slate-500 overflow-hidden">
@@ -51,7 +51,26 @@ export default function BillContainer() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {customer.cartItems.map((item) => {
+                    return (
+                      <tr key={item._id}>
+                        <td className="py-4 sm:table-cell hidden">
+                          <img
+                            src={item.productImage}
+                            alt="product"
+                            className="w-14 h-14 object-cover"
+                          />
+                        </td>
+                        <td className="py-4">{item.productName}</td>
+                        <td className="py-4">${item.productPrice}</td>
+                        <td className="py-4">{item.quantity}</td>
+                        <td className="py-4">
+                          ${item.productPrice * item.quantity}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                  {/* <tr>
                     <td className="py-4 sm:table-cell hidden">
                       <img
                         src="https://picsum.photos/200/300"
@@ -76,7 +95,7 @@ export default function BillContainer() {
                     <td className="py-4">$321</td>
                     <td className="py-4">123</td>
                     <td className="py-4">$231</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
                 <tfoot>
                   <tr>
@@ -84,21 +103,29 @@ export default function BillContainer() {
                     <td className="py-2"></td>
                     <td className="py-2"></td>
                     <td className="py-2 text-slate-700">Sub Total</td>
-                    <td className="py-2 text-slate-500">$90.00</td>
+                    <td className="py-2 text-slate-500">
+                      ${customer.subTotal}
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 sm:table-cell hidden"></td>
                     <td className="py-2"></td>
                     <td className="py-2"></td>
                     <td className="py-2 text-slate-700">Taxes</td>
-                    <td className="py-2 text-red-600">+$9.00</td>
+                    <td className="py-2 text-red-600">
+                      +${(customer.subTotal * customer.tax) / 100}
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 sm:table-cell hidden"></td>
                     <td className="py-2"></td>
                     <td className="py-2"></td>
                     <td className="py-2 font-bold text-slate-700">Total</td>
-                    <td className="py-2 font-bold text-slate-700">$99.00</td>
+                    <td className="py-2 font-bold text-slate-700">
+                      $
+                      {customer.subTotal +
+                        (customer.subTotal * customer.tax) / 100}
+                    </td>
                   </tr>
                 </tfoot>
               </table>
