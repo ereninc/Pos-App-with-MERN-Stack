@@ -60,16 +60,29 @@ export default function BillPage() {
       title: "Payment Type",
       dataIndex: "paymentType",
       key: "paymentType",
+      render: (text) => {
+        return <span>{text.toUpperCase()}</span>;
+      },
     },
     {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
+      render: (text) => {
+        return (
+          <span>
+            {text.substring(0, 10)} / {text.substring(11, 16)}
+          </span>
+        );
+      },
     },
     {
       title: "Total Price",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      render: (text) => {
+        return <span>${text}</span>;
+      },
     },
     {
       title: "Action",
@@ -77,7 +90,7 @@ export default function BillPage() {
       key: "action",
       render: () => {
         return (
-          <Button type="primary" onClick={showModal}>
+          <Button type="text" onClick={showModal} className="text-blue-500">
             Print Bill
           </Button>
         );
