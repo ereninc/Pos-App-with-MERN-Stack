@@ -7,6 +7,7 @@ export default function DataTable({ dataSource, columns }) {
       dataSource={dataSource}
       columns={columns}
       bordered
+      rowKey="_id"
       scroll={{
         x: 960,
         // y: 200,

@@ -1,11 +1,14 @@
 import { Button } from "antd";
-import React from "react";
+import React, { useRef } from "react";
 import BillDetails from "../print-bill-details";
+import ReactToPrint from "react-to-print";
 
 export default function BillContainer({ customer }) {
+  const componentRef = useRef(null);
+
   return (
     <div>
-      <section className="py-20 bg-black">
+      <section className="py-20 bg-black" ref={componentRef}>
         <div className="max-w-5xl mx-auto bg-white px-6">
           <article className="overflow-hidden">
             <div className="logo my-6">
@@ -149,9 +152,18 @@ export default function BillContainer({ customer }) {
         </div>
       </section>
       <div className="flex justify-end mt-8">
-        <Button type="primary" size="large">
-          Print
-        </Button>
+        <ReactToPrint
+          trigger={() => {
+            return (
+              <Button type="primary" size="large">
+                Print
+              </Button>
+            );
+          }}
+          content={() => componentRef.current}
+          documentTitle="new document"
+          pagestyle="print"
+        />
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ export default function BillPage() {
     {
       title: "Customer Phone",
       dataIndex: "customerPhone",
-      key: "customerName",
+      key: "customerPhone",
     },
     {
       title: "Payment Type",
