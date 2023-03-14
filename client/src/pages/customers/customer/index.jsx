@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import DataTable from "../../../components/data-table";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
-import { Button, Input, Space } from "antd";
+import { Button, Input, Space, Spin } from "antd";
 
 export default function CustomersPage() {
-  const [bills, setBills] = useState([]);
+  const [bills, setBills] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -153,9 +153,15 @@ export default function CustomersPage() {
   return (
     <div>
       <h1 className="font-bold text-center text-5xl">Customers</h1>
-      <div className="p-6">
-        <DataTable dataSource={bills} columns={COLS} />
-      </div>
+      {bills ? (
+        <div>
+          <div className="p-6">
+            <DataTable dataSource={bills} columns={COLS} />
+          </div>
+        </div>
+      ) : (
+        <Spin size="large" className="absolute top-1/3 left-1/2" />
+      )}
     </div>
   );
 }

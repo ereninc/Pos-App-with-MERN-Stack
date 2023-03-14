@@ -1,4 +1,4 @@
-import { Button, Input, Space } from "antd";
+import { Button, Input, Space, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import DataTable from "../../../components/data-table";
 import PrintBill from "../print-bill-modal";
@@ -7,7 +7,7 @@ import Highlighter from "react-highlight-words";
 
 export default function BillPage() {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [bills, setBills] = useState([]);
+  const [bills, setBills] = useState();
   const [customer, setCustomer] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -195,19 +195,25 @@ export default function BillPage() {
   ];
 
   return (
-    <div>
+    <>
       <h1 className="font-bold text-center text-5xl">Bills</h1>
-      <div className="p-6">
-        <DataTable dataSource={bills} columns={columns} />
-      </div>
-      {isModalVisible && (
-        <PrintBill
-          isModalOpen={isModalVisible}
-          onOk={showModal}
-          onCancel={showModal}
-          customer={customer}
-        />
+      {bills ? (
+        <div>
+          <div className="p-6">
+            <DataTable dataSource={bills} columns={columns} />
+          </div>
+          {isModalVisible && (
+            <PrintBill
+              isModalOpen={isModalVisible}
+              onOk={showModal}
+              onCancel={showModal}
+              customer={customer}
+            />
+          )}
+        </div>
+      ) : (
+        <Spin size="large" className="absolute top-1/3 left-1/2" />
       )}
-    </div>
+    </>
   );
 }

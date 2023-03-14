@@ -3,11 +3,12 @@ import CartTotals from "./components/cart/cart-totals";
 import CategoryList from "./components/categories";
 import ProductList from "./components/products/product-list";
 import { Context } from "../../contexts/Context";
+import { Spin } from "antd";
 
 export default function HomePage() {
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState();
+  const [products, setProducts] = useState();
 
   const { searchKeyword, setSearchKeyword } = useContext(Context);
   console.log(searchKeyword);
@@ -52,26 +53,32 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="home px-6 flex md:flex-row flex-col justify-between gap-6">
-      <div className="categories-wrapper flex-1">
-        <CategoryList
-          categories={categories}
-          setCategories={setCategories}
-          products={products}
-          setFilteredProducts={setFilteredProducts}
-        />
-      </div>
-      <div className="products-wrapper flex-[8]">
-        <ProductList
-          products={products}
-          setProducts={setProducts}
-          filteredProducts={filteredProducts}
-          searchKeyword={searchKeyword}
-        />
-      </div>
-      <div className="cart-wrapper min-w-[250px] -mr-6 -mt-6 border-l md:pb-0 pb-24">
-        <CartTotals />
-      </div>
-    </div>
+    <>
+      {products && categories ? (
+        <div className="home px-6 flex md:flex-row flex-col justify-between gap-6">
+          <div className="categories-wrapper flex-1">
+            <CategoryList
+              categories={categories}
+              setCategories={setCategories}
+              products={products}
+              setFilteredProducts={setFilteredProducts}
+            />
+          </div>
+          <div className="products-wrapper flex-[8]">
+            <ProductList
+              products={products}
+              setProducts={setProducts}
+              filteredProducts={filteredProducts}
+              searchKeyword={searchKeyword}
+            />
+          </div>
+          <div className="cart-wrapper min-w-[250px] -mr-6 -mt-6 border-l md:pb-0 pb-24">
+            <CartTotals />
+          </div>
+        </div>
+      ) : (
+        <Spin size="large" className="absolute top-1/3 left-1/2" />
+      )}
+    </>
   );
 }
