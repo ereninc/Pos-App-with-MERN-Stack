@@ -14,7 +14,7 @@ export default function StatisticsPage() {
     const getProducts = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/products/get-all-products"
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all-products"
         );
         const data = await res.json();
         setProducts(data);
@@ -30,7 +30,7 @@ export default function StatisticsPage() {
   }, []);
 
   const asyncFetch = () => {
-    fetch("http://localhost:5000/api/bills/get-all-bills")
+    fetch(process.env.REACT_APP_SERVER_URL + "/api/bills/get-all-bills")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {

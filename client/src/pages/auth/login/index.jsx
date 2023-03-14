@@ -10,11 +10,14 @@ export default function LoginPage() {
   const onFinish = async (values) => {
     console.log(values);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/auth/login",
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
 
       const user = await res.json();
 

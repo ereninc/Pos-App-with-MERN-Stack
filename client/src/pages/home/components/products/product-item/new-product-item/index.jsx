@@ -12,7 +12,7 @@ export default function NewProductItem({ products, setProducts }) {
   const onFinish = (values) => {
     console.log(values);
     try {
-      fetch("http://localhost:5000/api/products/add-product", {
+      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/add-product", {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -37,7 +37,8 @@ export default function NewProductItem({ products, setProducts }) {
     const getCategories = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/categories/get-all-categories",
+          process.env.REACT_APP_SERVER_URL +
+            "/api/categories/get-all-categories",
           {
             method: "GET",
           }

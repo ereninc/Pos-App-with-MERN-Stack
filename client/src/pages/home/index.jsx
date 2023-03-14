@@ -17,7 +17,8 @@ export default function HomePage() {
     const getCategories = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/categories/get-all-categories",
+          process.env.REACT_APP_SERVER_URL +
+            "/api/categories/get-all-categories",
           {
             method: "GET",
           }
@@ -41,7 +42,7 @@ export default function HomePage() {
     const getProducts = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/products/get-all-products"
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all-products"
         );
         const data = await res.json();
         setProducts(data);

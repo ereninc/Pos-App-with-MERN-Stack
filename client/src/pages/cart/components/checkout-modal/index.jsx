@@ -22,23 +22,26 @@ export default function CheckoutModal(props) {
   const onFinish = async (values) => {
     console.log("Success:", values);
     try {
-      const res = await fetch("http://localhost:5000/api/bills/add-bill", {
-        method: "POST",
-        body: JSON.stringify({
-          // ...values,
-          customerName: values.firstName,
-          customerPhone: values.phoneNumber,
-          paymentType: values.paymentType,
-          cartItems: cart.cartItems,
-          subTotal: cart.subTotal,
-          tax: cart.taxes,
-          totalPrice: (
-            cart.subTotal +
-            (cart.subTotal * cart.taxes) / 100
-          ).toFixed(2),
-        }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/bills/add-bill",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            // ...values,
+            customerName: values.firstName,
+            customerPhone: values.phoneNumber,
+            paymentType: values.paymentType,
+            cartItems: cart.cartItems,
+            subTotal: cart.subTotal,
+            tax: cart.taxes,
+            totalPrice: (
+              cart.subTotal +
+              (cart.subTotal * cart.taxes) / 100
+            ).toFixed(2),
+          }),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
 
       console.log(res);
       if (res.ok) {

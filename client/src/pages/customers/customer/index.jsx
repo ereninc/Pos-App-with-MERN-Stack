@@ -107,7 +107,7 @@ export default function CustomersPage() {
     const getBills = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/bills/get-all-bills",
+          process.env.REACT_APP_SERVER_URL + "/api/bills/get-all-bills",
           {
             method: "GET",
           }

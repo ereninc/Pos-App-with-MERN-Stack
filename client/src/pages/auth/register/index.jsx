@@ -8,11 +8,14 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values) => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/auth/register",
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
       if (res.ok) {
         message.success("Registered successfully!");
         setIsLoading(true);

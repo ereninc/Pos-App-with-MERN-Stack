@@ -71,11 +71,14 @@ export default function EditCategoryItem({ categories, setCategories }) {
 
   const onFinish = (values) => {
     try {
-      fetch("http://localhost:5000/api/categories/update-category", {
-        method: "PUT",
-        body: JSON.stringify({ ...values, categoryId: editingRow._id }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/categories/update-category",
+        {
+          method: "PUT",
+          body: JSON.stringify({ ...values, categoryId: editingRow._id }),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
       message.success("Category name changed.");
       setCategories(
         categories.map((item) => {
@@ -93,11 +96,14 @@ export default function EditCategoryItem({ categories, setCategories }) {
 
   const onDelete = (id) => {
     try {
-      fetch("http://localhost:5000/api/categories/delete-category", {
-        method: "DELETE",
-        body: JSON.stringify({ categoryId: id }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/categories/delete-category",
+        {
+          method: "DELETE",
+          body: JSON.stringify({ categoryId: id }),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
       message.success("Category deleted.");
       setCategories(categories.filter((item) => item._id !== id));
     } catch (error) {
