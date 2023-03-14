@@ -17,7 +17,7 @@ export default function BillPage() {
     const getBills = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/bills/get-all-bills",
+          process.env.REACT_APP_SERVER_URL + "api/bills/get-all-bills",
           {
             method: "GET",
           }

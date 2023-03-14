@@ -23,7 +23,7 @@ export default function CheckoutModal(props) {
     console.log("Success:", values);
     try {
       const res = await fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/bills/add-bill",
+        process.env.REACT_APP_SERVER_URL + "api/bills/add-bill",
         {
           method: "POST",
           body: JSON.stringify({

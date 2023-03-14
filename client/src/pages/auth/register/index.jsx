@@ -9,7 +9,7 @@ export default function RegisterPage() {
   const onFinish = async (values) => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/auth/register",
+        process.env.REACT_APP_SERVER_URL + "api/auth/register",
         {
           method: "POST",
           body: JSON.stringify(values),

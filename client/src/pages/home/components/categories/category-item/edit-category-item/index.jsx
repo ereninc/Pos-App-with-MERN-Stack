@@ -72,7 +72,7 @@ export default function EditCategoryItem({ categories, setCategories }) {
   const onFinish = (values) => {
     try {
       fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/categories/update-category",
+        process.env.REACT_APP_SERVER_URL + "api/categories/update-category",
         {
           method: "PUT",
           body: JSON.stringify({ ...values, categoryId: editingRow._id }),
@@ -97,7 +97,7 @@ export default function EditCategoryItem({ categories, setCategories }) {
   const onDelete = (id) => {
     try {
       fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/categories/delete-category",
+        process.env.REACT_APP_SERVER_URL + "api/categories/delete-category",
         {
           method: "DELETE",
           body: JSON.stringify({ categoryId: id }),
