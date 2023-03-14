@@ -1,16 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartTotals from "./components/cart/cart-totals";
 import CategoryList from "./components/categories";
 import ProductList from "./components/products/product-list";
 
 export default function HomePage() {
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/categories/get-all-categories",
+          {
+            method: "GET",
+          }
+        );
+        const data = await res.json();
+        data &&
+          setCategories(
+            data.map((item) => {
+              return { ...item, value: item.title };
+            })
+          );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/products/get-all-products"
+        );
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, []);
+
   return (
     <div className="home px-6 flex md:flex-row flex-col justify-between gap-6">
       <div className="categories-wrapper flex-1">
-        <CategoryList />
+        <CategoryList
+          categories={categories}
+          setCategories={setCategories}
+          products={products}
+          setFilteredProducts={setFilteredProducts}
+        />
       </div>
       <div className="products-wrapper flex-[8]">
-        <ProductList />
+        <ProductList
+          products={products}
+          setProducts={setProducts}
+          filteredProducts={filteredProducts}
+        />
       </div>
       <div className="cart-wrapper min-w-[250px] -mr-6 -mt-6 border-l md:pb-0 pb-24">
         <CartTotals />
