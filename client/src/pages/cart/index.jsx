@@ -1,15 +1,112 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import DataTable from "../../components/data-table";
 import CartTotal from "./components/cart-total";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, message } from "antd";
+import { Button, Input, message, Space } from "antd";
 import { addProduct, clearCart, removeProduct } from "../../redux/cartSlice";
-// import { clearCart } from "../../../../redux/cartSlice";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 
 export default function CartPage() {
   const cart = useSelector((state) => state.cart);
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
   const dispatch = useDispatch();
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
 
   const columns = [
     {
@@ -31,11 +128,13 @@ export default function CartPage() {
       title: "Name",
       dataIndex: "productName",
       key: "productName",
+      ...getColumnSearchProps("productName"),
     },
     {
       title: "Category",
       dataIndex: "productCategory",
       key: "productCategory",
+      ...getColumnSearchProps("productCategory"),
     },
     {
       title: "Product Price",
@@ -49,6 +148,8 @@ export default function CartPage() {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.quantity - b.quantity,
       render: (_, item) => {
         return (
           <div className="cart-item__quantity flex-1" key={item._id}>
@@ -85,6 +186,9 @@ export default function CartPage() {
       title: "Total Price",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      defaultSortOrder: "descend",
+      sorter: (a, b) =>
+        a.productPrice * a.quantity - b.productPrice * b.quantity,
       render: (_, item) => {
         return <p>${item.productPrice * item.quantity}</p>;
       },
