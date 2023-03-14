@@ -10,12 +10,16 @@ import {
 import { Badge, Input, message } from "antd";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../../contexts/Context";
 
 export default function Header() {
   const cart = useSelector((state) => state.cart);
+
+  const { pathname } = useLocation();
   const { searchKeyword, setSearchKeyword } = useContext(Context);
+
+  console.log(pathname);
 
   const navigate = useNavigate();
   const logout = () => {
@@ -29,6 +33,7 @@ export default function Header() {
   };
 
   const handleOnChange = (e) => {
+    pathname !== "/home" && navigate("/home");
     setSearchKeyword(e.target.value);
   };
 
