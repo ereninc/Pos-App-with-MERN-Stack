@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, message, Modal, Select, Table } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import DataTable from "../../../../../components/data-table";
-// import { useProducts } from "../../../../../contexts/product-contexts";
-// import { useCategories } from "../../../../../contexts/category-contexts";
 
 export default function EditProducts() {
   const [editingItem, setEditingItem] = useState({});
-  // const products = useProducts();
-  // const categories = useCategories();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [categories, setCategories] = useState([]);
@@ -182,13 +178,6 @@ export default function EditProducts() {
 
   return (
     <>
-      {/* <DataTable
-        // bordered="true"
-        dataSource={products}
-        columns={columns}
-        // rowKey={"_id"}
-        // scroll={{ x: 1000, y: 600 }}
-      /> */}
       <DataTable dataSource={products} columns={columns} />
       <Modal
         title="Edit product.."
