@@ -9,6 +9,7 @@ import RegisterPage from "./pages/auth/register";
 import AuthLayout from "./pages/auth/components/auth";
 import LoginPage from "./pages/auth/login";
 import ProductsPage from "./pages/home/components/products";
+import { TestPage } from "./contexts/test";
 
 function App() {
   return (
@@ -62,6 +63,14 @@ function App() {
               element={
                 <RouterControl>
                   <ProductsPage />
+                </RouterControl>
+              }
+            />
+            <Route
+              path="/test"
+              element={
+                <RouterControl>
+                  <TestPage />
                 </RouterControl>
               }
             />

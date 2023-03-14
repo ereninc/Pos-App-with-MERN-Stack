@@ -8,11 +8,14 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Badge, Input, message } from "antd";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Context } from "../../contexts/Context";
 
 export default function Header() {
   const cart = useSelector((state) => state.cart);
+  const { searchKeyword, setSearchKeyword } = useContext(Context);
 
   const navigate = useNavigate();
   const logout = () => {
@@ -23,6 +26,10 @@ export default function Header() {
         navigate("/login");
       }, 1000);
     }
+  };
+
+  const handleOnChange = (e) => {
+    setSearchKeyword(e.target.value);
   };
 
   return (
@@ -39,6 +46,7 @@ export default function Header() {
             placeholder="Search for products"
             prefix={<SearchOutlined />}
             className="rounded-full max-w-[800px]"
+            onChange={handleOnChange}
           />
         </div>
         <div className="menu-links flex justify-between items-center gap-8 md:static fixed bottom-0 md:w-auto w-[calc(100vw-25px)] md:bg-transparent z-50 bg-white left-0 md:px-0 px-6 md:py-0 py-4 md:border-t-0 border-t">

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CartTotals from "./components/cart/cart-totals";
 import CategoryList from "./components/categories";
 import ProductList from "./components/products/product-list";
+import { Context } from "../../contexts/Context";
 
 export default function HomePage() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+
+  const { searchKeyword, setSearchKeyword } = useContext(Context);
+  console.log(searchKeyword);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -62,6 +66,7 @@ export default function HomePage() {
           products={products}
           setProducts={setProducts}
           filteredProducts={filteredProducts}
+          searchKeyword={searchKeyword}
         />
       </div>
       <div className="cart-wrapper min-w-[250px] -mr-6 -mt-6 border-l md:pb-0 pb-24">
