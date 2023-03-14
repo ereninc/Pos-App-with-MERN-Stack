@@ -11,7 +11,7 @@ export default function HomePage() {
   const [products, setProducts] = useState();
 
   const { searchKeyword, setSearchKeyword } = useContext(Context);
-  console.log(searchKeyword);
+  // console.log(searchKeyword);
 
   useEffect(() => {
     const getCategories = async () => {

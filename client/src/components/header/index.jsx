@@ -20,7 +20,7 @@ export default function Header() {
   const { pathname } = useLocation();
   const { searchKeyword, setSearchKeyword } = useContext(Context);
 
-  console.log(pathname);
+  // console.log(pathname);
 
   const navigate = useNavigate();
   const logout = () => {
