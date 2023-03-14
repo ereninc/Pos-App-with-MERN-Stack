@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Select } from "antd";
-import { useCategories } from "../../../../../../contexts/category-contexts";
+// import { useCategories } from "../../../../../../contexts/category-contexts";
 
 export default function NewProductItem({ products, setProducts }) {
-  const categories = useCategories();
+  // const categories = useCategories();
+  const [categories, setCategories] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -31,6 +32,31 @@ export default function NewProductItem({ products, setProducts }) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/categories/get-all-categories",
+          {
+            method: "GET",
+          }
+        );
+        const data = await res.json();
+        data &&
+          setCategories(
+            data.map((item) => {
+              return { ...item, value: item.title };
+            })
+          );
+        // console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCategories();
+  }, []);
 
   const showModal = () => {
     setIsAddModalOpen(true);

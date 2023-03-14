@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Modal, Space, Table, Tag } from "antd";
+import { Button, Form, Input, message, Modal, Table } from "antd";
 
-export default function EditCategoryItem({ categories }) {
+export default function EditCategoryItem({ categories, setCategories }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingRow, setEditingRow] = useState({});
 
@@ -77,6 +77,14 @@ export default function EditCategoryItem({ categories }) {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
       message.success("Category name changed.");
+      setCategories(
+        categories.map((item) => {
+          if (item._id === editingRow._id) {
+            return { ...item, title: values.title };
+          }
+          return item;
+        })
+      );
       setEditingRow({});
     } catch (error) {
       console.log(error);
@@ -91,6 +99,7 @@ export default function EditCategoryItem({ categories }) {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
       message.success("Category deleted.");
+      setCategories(categories.filter((item) => item._id !== id));
     } catch (error) {
       console.log(error);
     }

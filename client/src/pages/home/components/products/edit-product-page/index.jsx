@@ -1,14 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, message, Modal, Select, Table } from "antd";
-import { useProducts } from "../../../../../contexts/product-contexts";
-import { useCategories } from "../../../../../contexts/category-contexts";
+import DataTable from "../../../../../components/data-table";
+// import { useProducts } from "../../../../../contexts/product-contexts";
+// import { useCategories } from "../../../../../contexts/category-contexts";
 
 export default function EditProducts() {
   const [editingItem, setEditingItem] = useState({});
-  const products = useProducts();
-  const categories = useCategories();
+  // const products = useProducts();
+  // const categories = useCategories();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/products/get-all-products"
+        );
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, []);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/categories/get-all-categories",
+          {
+            method: "GET",
+          }
+        );
+        const data = await res.json();
+        data &&
+          setCategories(
+            data.map((item) => {
+              return { ...item, value: item.title };
+            })
+          );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCategories();
+  }, []);
 
   const showModal = () => {
     setIsEditModalOpen(true);
@@ -26,6 +68,7 @@ export default function EditProducts() {
     {
       title: "Products Title",
       dataIndex: "title",
+      key: "title",
       width: "8%",
       render: (_, item) => {
         return <p>{item.title}</p>;
@@ -34,6 +77,7 @@ export default function EditProducts() {
     {
       title: "Products Image",
       dataIndex: "img",
+      key: "img",
       width: "4%",
       render: (_, item) => {
         return (
@@ -50,6 +94,7 @@ export default function EditProducts() {
     {
       title: "Products Price",
       dataIndex: "price",
+      key: "price",
       width: "8%",
       render: (_, item) => {
         return <p>${item.price}</p>;
@@ -58,6 +103,7 @@ export default function EditProducts() {
     {
       title: "Products Category",
       dataIndex: "category",
+      key: "category",
       width: "8%",
       render: (_, item) => {
         return <p>{item.category}</p>;
@@ -66,6 +112,7 @@ export default function EditProducts() {
     {
       title: "Action",
       dataIndex: "action",
+      key: "action",
       width: "8%",
       render: (_, item) => {
         return (
@@ -104,6 +151,14 @@ export default function EditProducts() {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
       message.success("Product updated.");
+      setProducts(
+        products.map((item) => {
+          if (item._id === editingItem._id) {
+            return values;
+          }
+          return item;
+        })
+      );
       setEditingItem({});
       handleOk();
     } catch (error) {
@@ -118,6 +173,7 @@ export default function EditProducts() {
         body: JSON.stringify({ productId: id }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
+      setProducts(products.filter((item) => item._id !== id));
       message.success("Product deleted.");
     } catch (error) {
       console.log(error);
@@ -126,13 +182,14 @@ export default function EditProducts() {
 
   return (
     <>
-      <Table
-        bordered="true"
+      {/* <DataTable
+        // bordered="true"
         dataSource={products}
         columns={columns}
-        rowKey={"_id"}
-        scroll={{ x: 1000, y: 600 }}
-      />
+        // rowKey={"_id"}
+        // scroll={{ x: 1000, y: 600 }}
+      /> */}
+      <DataTable dataSource={products} columns={columns} />
       <Modal
         title="Edit product.."
         open={isEditModalOpen}

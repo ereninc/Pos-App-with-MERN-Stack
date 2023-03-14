@@ -9,30 +9,30 @@ export function useCategories() {
 export function CategoryProvider({ children }) {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await fetch(
-          "http://localhost:5000/api/categories/get-all-categories",
-          {
-            method: "GET",
-          }
-        );
-        const data = await res.json();
-        data &&
-          setCategories(
-            data.map((item) => {
-              return { ...item, value: item.title };
-            })
-          );
-        // console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         "http://localhost:5000/api/categories/get-all-categories",
+  //         {
+  //           method: "GET",
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       data &&
+  //         setCategories(
+  //           data.map((item) => {
+  //             return { ...item, value: item.title };
+  //           })
+  //         );
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    getCategories();
-  }, [categories]);
+  //   getCategories();
+  // }, []);
 
   return (
     <CategoryContext.Provider value={categories}>

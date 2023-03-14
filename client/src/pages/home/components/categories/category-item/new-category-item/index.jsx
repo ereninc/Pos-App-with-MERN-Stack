@@ -3,12 +3,12 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { Button, Form, Input, message, Modal } from "antd";
 
-export default function NewCategoryItem() {
+export default function NewCategoryItem({ categories, setCategories }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    // console.log("SUBMITTED", values);
+    console.log("SUBMITTED", values);
     try {
       fetch("http://localhost:5000/api/categories/add-category", {
         method: "POST",
@@ -17,6 +17,13 @@ export default function NewCategoryItem() {
       });
       message.success("Category added successfully!");
       form.resetFields();
+      setCategories([
+        ...categories,
+        {
+          ...values,
+          _id: Math.random(),
+        },
+      ]);
     } catch (error) {
       console.log(error);
     }
