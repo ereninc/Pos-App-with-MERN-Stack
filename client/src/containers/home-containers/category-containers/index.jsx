@@ -21,8 +21,6 @@ export default function CategoriesContainer({
     }
   }, [products, setFilteredProducts, currentCategory]);
 
-  console.log(currentCategory);
-
   return (
     <ul className="categories-list flex gap-4 md:flex-col overflow-auto max-h-[calc(100vh-112px)] md:pb-6 min-w-[145px]">
       {categories.map((cat) => {
