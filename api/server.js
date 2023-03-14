@@ -12,7 +12,7 @@ const usersRoute = require("./routes/users.js");
 
 //Express server
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 //Env file and this file connection
 dotenv.config();
