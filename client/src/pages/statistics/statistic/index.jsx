@@ -7,6 +7,8 @@ export default function StatisticsPage() {
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const user = JSON.parse(localStorage.getItem("setUser"));
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -95,7 +97,9 @@ export default function StatisticsPage() {
         <div className="welcome">
           <h2>
             Welcome,{" "}
-            <span className="font-bold text-green-600 text-xl">admin</span>
+            <span className="font-bold text-green-600 text-xl">
+              {user.username}
+            </span>
           </h2>
         </div>
         <div className="statistic-cards grid md:grid-cols-4 mt-8 sm:grid-cols-2 gap-6 w-full">
