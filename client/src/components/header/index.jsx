@@ -7,12 +7,23 @@ import {
   PieChartOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Badge, Input } from "antd";
+import { Badge, Input, message } from "antd";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const cart = useSelector((state) => state.cart);
+
+  const navigate = useNavigate();
+  const logout = () => {
+    if (window.confirm("Are you sure?")) {
+      localStorage.removeItem("setUser");
+      message.success("Logout successfully");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+  };
 
   return (
     <div className="border-b mb-6">
@@ -73,8 +84,9 @@ export default function Header() {
             <span className="text-xs md:text-sm">Statistics</span>
           </NavLink>
           <NavLink
-            to={"/logout"}
+            // to={"/"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all duration-300 min-w-[40px] text-center"
+            onClick={logout}
           >
             <LogoutOutlined className="text-xl md:text-2xl" />
             <span className="text-xs md:text-sm">Log out</span>
