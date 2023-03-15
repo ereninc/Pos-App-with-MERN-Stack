@@ -19,7 +19,7 @@ export default function ProductItem(props) {
         <img
           src={props.productImage}
           alt="product"
-          className="h-28 object-cover w-full border-b-2"
+          className="h-28 object-contain w-full border-b-2"
         />
       </div>
       <div className="product-details flex flex-col items-center p-3">
